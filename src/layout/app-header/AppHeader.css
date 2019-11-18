@@ -1,0 +1,17 @@
+.app-header {
+    background: #333;
+    text-align: center;
+}
+
+h2 {
+    text-transform: uppercase;
+    animation: logoBlink 4s linear infinite;
+}
+
+@keyframes logoBlink {
+    0% { color: darkkhaki }
+    25% { color: darkorange }
+    50% { color: darkgray }
+    75% { color: darksalmon }
+    100% { color: darkkhaki }
+}
