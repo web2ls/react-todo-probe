@@ -4,7 +4,7 @@ import './App.css';
 import AppHeader from './layout/app-header/AppHeader';
 import AppContainer from './layout/app-container/AppContainer';
 import * as Routes from './constants/routes';
-import SignIn from './components/sign-in/SignIn';
+import SignInPage from './components/sign-in/SignIn';
 
 function App() {
 	return (
@@ -13,7 +13,7 @@ function App() {
 				<div className="container">
 					<AppHeader />
 					<Route exact path={ Routes.HOME } component={ AppContainer } />
-					<Route path={ Routes.SIGNIN } component={ SignIn } />
+					<Route path={ Routes.SIGNIN } component={ SignInPage } />
 				</div>
 			</div>
 		</Router>
