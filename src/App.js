@@ -1,23 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import AppHeader from './layout/app-header/AppHeader';
 import AppContainer from './layout/app-container/AppContainer';
 import * as Routes from './constants/routes';
 import SignInPage from './components/sign-in/SignIn';
+import { withFirebase } from './context/firebase';
+import AuthUserContext from './context/auth-user';
 
-function App() {
-	return (
-		<Router>
-			<div className="App">
-				<div className="container">
-					<AppHeader />
-					<Route exact path={ Routes.HOME } component={ AppContainer } />
-					<Route path={ Routes.SIGNIN } component={ SignInPage } />
-				</div>
-			</div>
-		</Router>
-	)
+class App extends Component{
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			authUser: null
+		}
+	}
+
+	componentDidMount() {
+		this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
+			authUser ? this.setState({ authUser }) : this.setState({ authUser: null });
+		})
+	}
+
+	componentWillUnmount() {
+		this.listener();
+	}
+
+	render() {
+		return (
+			<AuthUserContext.Provider value={this.state.authUser}>
+				<Router>
+					<div className="App">
+						<div className="container">
+							<AppHeader />
+							<Route exact path={ Routes.HOME } component={ AppContainer } />
+							<Route path={ Routes.SIGNIN } component={ SignInPage } />
+						</div>
+					</div>
+				</Router>
+			</AuthUserContext.Provider>
+		)
+	}
 }
 
-export default App;
+export default withFirebase(App);
