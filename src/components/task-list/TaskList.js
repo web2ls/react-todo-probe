@@ -47,10 +47,23 @@ class TaskList extends Component {
         })
     }
 
+    handleDeleteTask = (deletedTaskId) => {
+        const ref = this.props.firebase.database.ref('tasks');
+        ref.child(deletedTaskId).remove().then(res => {
+            console.log('Task has been deleted');
+            const tasks = this.state.tasks.filter(task => task.id !== deletedTaskId);
+            this.setState({ tasks: tasks });
+        })
+        .catch(error => {
+            console.log('error');
+            this.setState({ error: error.message });
+        })
+    }
+
     render() {
         const { tasks, error } = this.state;
         const tasksList = tasks.map(task => (
-            <Task key={task.id} task={task} />
+            <Task key={task.id} task={task} handleDeleteTask={this.handleDeleteTask} />
         ))
 
         return (
