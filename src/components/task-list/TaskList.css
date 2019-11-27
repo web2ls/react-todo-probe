@@ -1,0 +1,9 @@
+.task-input {
+    width: 80%;
+    margin: 0 auto;
+    border: none;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid darkkhaki;
+    color: #fff;
+}

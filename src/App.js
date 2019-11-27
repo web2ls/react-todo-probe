@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import AppHeader from './layout/app-header/AppHeader';
+import Blackground from './layout/blackground/Blackground';
 import AppContainer from './layout/app-container/AppContainer';
 import * as Routes from './constants/routes';
 import SignInPage from './components/sign-in/SignIn';
@@ -32,6 +33,7 @@ class App extends Component{
 			<AuthUserContext.Provider value={this.state.authUser}>
 				<Router>
 					<div className="App">
+						<Blackground />
 						<div className="container">
 							<AppHeader />
 							<Route exact path={ Routes.HOME } component={ AppContainer } />

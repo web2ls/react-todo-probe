@@ -1,0 +1,18 @@
+.blackground-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: url(https://webfrontier.ru/images/slide1.jpg), #000 no-repeat;
+    background-size: cover;
+}
+
+.blackground {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2;
+}
