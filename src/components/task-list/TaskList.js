@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withFirebase } from '../../context/firebase';
 
 import './TaskList.css';
+import Task from '../Task/Task';
 
 const ENTER_BUTTON = 13;
 
@@ -34,7 +35,6 @@ class TaskList extends Component {
         const newTask = event.target.value;
         const ref = this.props.firebase.database.ref('tasks');
         ref.push(newTask).then(res => {
-            console.log(res);
             const createdTask = { id: res.key, description: newTask };
             const tasks = this.state.tasks;
             tasks.push(createdTask);
@@ -50,7 +50,7 @@ class TaskList extends Component {
     render() {
         const { tasks, error } = this.state;
         const tasksList = tasks.map(task => (
-            <div key={task.id} className="task">{task.description}</div>
+            <Task key={task.id} task={task} />
         ))
 
         return (
