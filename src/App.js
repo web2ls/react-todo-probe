@@ -35,7 +35,7 @@ class App extends Component{
 					<div className="App">
 						<Blackground />
 						<div className="container">
-							<AppHeader />
+							<AppHeader authUser={this.state.authUser} />
 							<Route exact path={ Routes.HOME } component={ AppContainer } />
 							<Route path={ Routes.SIGNIN } component={ SignInPage } />
 						</div>

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import { compose } from 'recompose';
 import { withFirebase } from '../../context/firebase';
+import { withRouter } from 'react-router-dom';
 
 import './TaskList.css';
 import Task from '../Task/Task';
 
 const ENTER_BUTTON = 13;
 
-class TaskList extends Component {
+class TaskListBase extends Component {
     constructor(props) {
         super(props);
         this.state = { tasks: [], error: null };
@@ -62,14 +64,18 @@ class TaskList extends Component {
 
     render() {
         const { tasks, error } = this.state;
+        const isUserExists = this.props.authUser ? true : false;
+        if (!isUserExists) {
+            this.props.history.push('/signin');
+        }
         const tasksList = tasks.map(task => (
-            <Task key={task.id} task={task} handleDeleteTask={this.handleDeleteTask} />
+            <Task key={task.id} task={task} handleDeleteTask={() => this.handleDeleteTask()} />
         ))
 
         return (
             <>
                 <div className="error-section">{error}</div>
-                <input type="text" className="task-input" placeholder="set task here..." onKeyDown={this.handleAddTask} ref={(input) => this.taskInput = input} />
+                <input type="text" className="task-input" placeholder="set task here..." onKeyDown={() => this.handleAddTask()} ref={(input) => this.taskInput = input} />
                 <div className="task-list">
                     <h3>Make this tasks immediatly</h3>
                     {tasksList}
@@ -79,4 +85,9 @@ class TaskList extends Component {
     }
 }
 
-export default withFirebase(TaskList);
+const TaskList =  compose(
+    withFirebase,
+    withRouter
+)(TaskListBase)
+
+export default TaskList;
